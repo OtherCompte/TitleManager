@@ -1,8 +1,24 @@
 import React from 'react'
 import TitleForm from "./TitleForm";
-import TitleList from "./TitleList";
+import { useSelector, useDispatch } from "react-redux"
+import Title from "./Title";
 
 export default function Titles() {
+
+    const { titles } = useSelector(state => ({
+        ...state.TitleReducer
+    }))
+
+    const dispatch = useDispatch();
+
+    const deleteTitle = (id) => {
+        const newTitles = titles.filter(title => title.id !== id)
+        dispatch({
+            type: "DELETE_TITLE",
+            payload: newTitles
+        })
+    }
+
     return (
         <div className="container">
             <h1 className="text-center mt-5">L'outil de recherche</h1>
@@ -20,7 +36,15 @@ export default function Titles() {
                         </tr>
                     </thead>
                     <tbody>
-                        <TitleList />
+                    {titles.map(title => {
+                        return (
+                            <Title
+                            key={title.id}
+                            id={title.id}
+                            title={title.title}
+                            delTitle={() => deleteTitle(title.id)}/>
+                        )
+                    })}
                     </tbody>
                 </table>
             </div>
