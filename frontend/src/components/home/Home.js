@@ -1,5 +1,6 @@
 import React from 'react'
 
+// La homepage -> Explication en quelques lignes de l'outil
 export default function Home() {
     return (
         <div className="container mt-5">
