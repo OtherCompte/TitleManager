@@ -8,6 +8,9 @@ import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
+  // Provider pour ajouter store et donc les Reducers du rootReducer
+  // Permet de passer les actions et les états pour les utiliser dans les éléments enfant
+  // donc dans l'application
   <Provider store={store}>
     <App />
   </Provider>,

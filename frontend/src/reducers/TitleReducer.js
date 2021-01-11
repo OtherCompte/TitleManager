@@ -29,6 +29,12 @@ function TitleReducer(state = INITIAL_STATE, action) {
                 ...state,
                 saveTitles: action.payload
             }
+        // Recherche de titre, ajoute les titres trouvés dans la requête à la liste titles
+        case "SEARCH_TITLE":
+            return {
+                ...state,
+                titles: action.payload
+            }
         default:
             return state
     }
