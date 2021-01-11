@@ -2,6 +2,7 @@ import React from 'react'
 import TitleForm from "./TitleForm";
 import { useSelector, useDispatch } from "react-redux"
 import Title from "./Title";
+import CsvDownloader from "react-csv-downloader";
 
 // La page Titles qui s'affichera à l'url /titles 
 // affichant :
@@ -138,6 +139,37 @@ export default function Titles() {
                     })}
                     </tbody>
                 </table>
+
+                {/* Bouton pour extraire la variable saveTitle en fichier CSV
+                le fichier aura :
+                    - Le nom filename
+                    - Un separateur "," entre chaque colonne
+                    - N'a pas d'élément qui l'encercle, " ' " si on veux l'englober avec des guillemets
+                    - columns la gestion des colonnes du fichier qui doit être les mêmes que les champs des objets
+                    - Les données : dans le cas présent la liste des titres sauvegardés
+                */}
+                <CsvDownloader
+                filename="filename"
+                separator=","
+                wrapColumnChar=""
+                columns = {[
+                    {
+                        id: "id",
+                        displayName: "id"
+                    },
+                    {
+                        id: "title",
+                        displayName: "Title"
+                    },
+                    {
+                        id: "date",
+                        displayName: "Date"
+                    }
+                ]}
+                datas={saveTitles}
+                >
+                    <button className="btn btn-primary" style={{float: "right"}}>Extraire en CSV</button> 
+                </CsvDownloader>
             </div>
         </div>
     )
