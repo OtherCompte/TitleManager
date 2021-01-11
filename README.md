@@ -1,4 +1,4 @@
-# React Title GENERATOR & MANAGER v0.1.1
+# ⚛️ React Title GENERATOR & MANAGER v0.1.1 ⚛️
 
 
 ## Prérequis
