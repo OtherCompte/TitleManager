@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Historic({ title, date }) {
+export default function Historic({ id, title, date }) {
     return (
         <tr  className="bg-primary">
             <th scope="row">

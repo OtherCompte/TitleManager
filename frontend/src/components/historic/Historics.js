@@ -34,7 +34,10 @@ export default function Historics() {
                                     Keyword
                                 </th>
                                 <th scope="col">
-                                    Date
+                                    Accèder
+                                </th>
+                                <th scope="col">
+                                    Date de création
                                 </th>
                             </tr>
                         </thead>

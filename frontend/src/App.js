@@ -1,9 +1,10 @@
 import Header from "./components/layouts/Header"
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom"
 import Home from "./components/home/Home";
 import Titles from "./components/titles/Titles";
-import Error from "./components/pages/Error"
 import Historics from "./components/historic/Historics"
+import HistoricId from "./components/historic/HistoricId"
+
 
 function App() {
   return (
@@ -24,8 +25,10 @@ function App() {
           {/* Affichage de la page historique, page de dashboard, avec l'élément Historic */}
           <Route exact path="/historics" component={Historics} />
 
+          <Route exact path="/historic/:id" component={HistoricId} />
+
           {/* Page d'erreur en cas d'url non trouvé */}
-          <Route component={Error}/>
+          <Redirect to={"/"}/>
         </Switch>
       </div>
     </Router>
