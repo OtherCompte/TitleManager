@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Home from "./components/home/Home";
 import Titles from "./components/titles/Titles";
 import Error from "./components/pages/Error"
-import Historic from "./components/historic/Historic"
+import Historics from "./components/historic/Historics"
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
           <Route exact path="/titles" component={Titles} />
 
           {/* Affichage de la page historique, page de dashboard, avec l'élément Historic */}
-          <Route exact path="/historic" component={Historic} />
+          <Route exact path="/historics" component={Historics} />
 
           {/* Page d'erreur en cas d'url non trouvé */}
           <Route component={Error}/>

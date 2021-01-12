@@ -12,6 +12,7 @@ import { v4 as uuidv4} from "uuid";
 //  - Le tableau des titres sauvegardés
 export default function Titles() {
 
+
     // Import des titres pour l'affichage dans le tableau des titres non sauvegardés
     // saveTitles pour l'affichage dans le tableau des titres non sauvegardés
     const { searchForm, titles, saveTitles } = useSelector(state => ({
@@ -20,46 +21,62 @@ export default function Titles() {
 
     const dispatch = useDispatch();
 
+
     // Supprime un titre dans le tableau titles
     // et donc dans le tableau des titles non sauvegardés
     const deleteTitle = (id) => {
+
+
         // Filtre pour récupérer tous les titres sauf le titre avec l'id en paramètre
-        const newTitles = titles.filter(title => title.id !== id)
         // Envoie vers le reducer le nouveau tableau titles
         dispatch({
             type: "DELETE_TITLE",
-            payload: newTitles
+            payload: titles.filter(title => title.id !== id)
         })
+
+
     }
 
 
     // Supprime un titre dans le tableau saveTitles
     // et donc dans le tableau des titles sauvegardés
     const deleteSaveTitle = (id) => {
+
+
         // Filtre pour récupérer tous les titres sauf le titre avec l'id en paramètre
-        const newTitles = saveTitles.filter(title => title.id !== id)
         // Envoie vers le reducer le nouveau tableau saveTitles
         dispatch({
             type: "DELETE_SAVE_TITLE",
-            payload: newTitles
+            payload: saveTitles.filter(title => title.id !== id)
         })
+
+
     }
+
 
     // Fait passer un titre non sauvegardé du tableau titles au tableau saveTitles
     // et de ce fait passe du tableau non sauvegardé au tableau sauvegardé
     const ajouterTitle = (id) => {
+
+
         // Récupére le titre qui a l'id du paramètre dans le tableau titles
         const newTitles = titles.filter(title => title.id === id)
         // Génére une date d'ajout pour l'affichage dans le tableau sauvegardé {date ?}
         newTitles[0].date = new Date().toLocaleString()
+
+
         // Envoie l'élément concaténé avec le tableau des titles sauvegardés pour sauvegarder le titre
         dispatch({
             type: "ADD_TITLE",
             payload: [...newTitles, ...saveTitles]
         })
+
         // Supprime le title dans le tableau titles
         deleteTitle(id)
+
+
     }
+
 
     // Ajoute la liste des saveTitles au state HistoricTitle afin de les garder en mémoire
     // envoie un objet contenant :
@@ -68,23 +85,28 @@ export default function Titles() {
     //   - la date de la sauvegarde
     //   - et la liste des mots clés dans le state saveTitles
     const saveHistoric = () => {
-        // L'objet qui sera ajouté au state HistoricTitles
-        const newHistoric = {
-            id: uuidv4(),
-            keyword: searchForm.keyword,
-            date: new Date().toLocaleString(),
-            titles: saveTitles
-        }
+
+
         // Envoie de l'élément vers le TitleReducer
         dispatch({
             type: "SAVE_IN_HISTORIC_TITLE",
-            payload: newHistoric
+            payload: {
+                id: uuidv4(),
+                keyword: searchForm.keyword,
+                date: new Date().toLocaleString(),
+                titles: saveTitles
+            }
         })
+
+
     }
+
 
     return (
         <div className="container mb-5">
             <h1 className="text-center mt-5">L'outil de recherche</h1>
+
+
             {/* Le formulaire de recherche des titres -> apiKey, keyword */}
             <TitleForm />
 
@@ -106,6 +128,8 @@ export default function Titles() {
                         </tr>
                     </thead>
                     <tbody>
+
+
                     {/* 
                         affiche une ligne dans le tableau pour chaque item dans le state titles du TitleReducer
                         fonction delTitle pour le bouton supprimer de la ligne
@@ -122,6 +146,8 @@ export default function Titles() {
                             />
                         )
                     })}
+
+
                     </tbody>
                 </table>
             </div>
@@ -144,6 +170,8 @@ export default function Titles() {
                         </tr>
                     </thead>
                     <tbody>
+
+
                     {/* 
                         affiche une ligne dans le tableau pour chaque item dans le state saveTitles du TitleReducer
                         fonction delSaveTitle pour le bouton supprimer de la ligne 
@@ -159,8 +187,11 @@ export default function Titles() {
                             />
                         )
                     })}
+
+
                     </tbody>
                 </table>
+
 
                 {/* Bouton pour extraire la variable saveTitle en fichier CSV
                 le fichier aura :
@@ -172,8 +203,8 @@ export default function Titles() {
                 */}
                 <CsvDownloader
                 filename="filename"
-                separator=","
-                wrapColumnChar=""
+                separator=";"
+                wrapColumnChar="'"
                 columns = {[
                     {
                         id: "id",
@@ -193,10 +224,13 @@ export default function Titles() {
                     <button className="btn btn-primary" style={{float: "right"}}>Extraire en CSV</button> 
                 </CsvDownloader>
 
+
                 {/*
                 Permer de déclencher la fonction saveHistoric, qui enregistre le saveTitles dans l'HistoricTitles 
                 */}
                 <button className="btn btn-success mr-4" style={{float: "right"}} onClick={saveHistoric}>Sauvegarder</button>
+
+
             </div>
         </div>
     )
