@@ -42,7 +42,7 @@ export default function Titles() {
     // et donc dans le tableau des titles sauvegardés
     const deleteSaveTitle = (id) => {
 
-
+        
         // Filtre pour récupérer tous les titres sauf le titre avec l'id en paramètre
         // Envoie vers le reducer le nouveau tableau saveTitles
         dispatch({
@@ -101,6 +101,46 @@ export default function Titles() {
 
     }
 
+    let saveTitlesIsActive = "";
+
+    if(saveTitles.length > 0) {
+        saveTitlesIsActive = (
+            <>
+            {/* Bouton pour extraire la variable saveTitle en fichier CSV
+            le fichier aura :
+                - Le nom filename
+                - Un separateur "," entre chaque colonne
+                - N'a pas d'élément qui l'encercle, " ' " si on veux l'englober avec des guillemets
+                - columns la gestion des colonnes du fichier qui doit être les mêmes que les champs des objets
+                - Les données : dans le cas présent la liste des titres sauvegardés */}
+            <CsvDownloader
+            filename="title_export"
+            separator=";"
+            wrapColumnChar="'"
+            columns = {[
+                {
+                    id: "id",
+                    displayName: "id"
+                },
+                {
+                    id: "title",
+                    displayName: "Title"
+                },
+                {
+                    id: "date",
+                    displayName: "Date"
+                }
+            ]}
+            datas={saveTitles}
+            >
+                <button className="btn btn-primary" style={{float: "right"}}>Extraire en CSV</button> 
+            </CsvDownloader>
+
+            
+            {/* Le bouton pour Sauvegarder les données dans le HistoricTitles du TitleReducer*/}
+            <button className="btn btn-success mr-4" style={{float: "right"}} onClick={saveHistoric}>Sauvegarder</button></>)
+    }
+
 
     return (
         <div className="container mb-5">
@@ -135,6 +175,7 @@ export default function Titles() {
                         fonction delTitle pour le bouton supprimer de la ligne
                         fonction addTitle pour le bouton ajouter de la ligne 
                     */}
+
                     {titles.map(title => {
                         return (
                             <Title
@@ -151,6 +192,7 @@ export default function Titles() {
                     </tbody>
                 </table>
             </div>
+
 
             {/* 
                 Le tableau des titles sauvegardés -> basé sur le state saveTitles du TitleReducer 
@@ -191,44 +233,12 @@ export default function Titles() {
 
                     </tbody>
                 </table>
+                
 
-
-                {/* Bouton pour extraire la variable saveTitle en fichier CSV
-                le fichier aura :
-                    - Le nom filename
-                    - Un separateur "," entre chaque colonne
-                    - N'a pas d'élément qui l'encercle, " ' " si on veux l'englober avec des guillemets
-                    - columns la gestion des colonnes du fichier qui doit être les mêmes que les champs des objets
-                    - Les données : dans le cas présent la liste des titres sauvegardés
-                */}
-                <CsvDownloader
-                filename="filename"
-                separator=";"
-                wrapColumnChar="'"
-                columns = {[
-                    {
-                        id: "id",
-                        displayName: "id"
-                    },
-                    {
-                        id: "title",
-                        displayName: "Title"
-                    },
-                    {
-                        id: "date",
-                        displayName: "Date"
-                    }
-                ]}
-                datas={saveTitles}
-                >
-                    <button className="btn btn-primary" style={{float: "right"}}>Extraire en CSV</button> 
-                </CsvDownloader>
-
-
-                {/*
-                Permer de déclencher la fonction saveHistoric, qui enregistre le saveTitles dans l'HistoricTitles 
-                */}
-                <button className="btn btn-success mr-4" style={{float: "right"}} onClick={saveHistoric}>Sauvegarder</button>
+                {/* Affichage conditionelle, si saveTitles est vide il affiche ""
+                 sinon il affiche le button extraire et le bouton sauvegarder*/}
+                
+                {saveTitlesIsActive}
 
 
             </div>
