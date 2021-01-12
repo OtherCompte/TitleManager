@@ -34,4 +34,6 @@ npm start
 
 - Rechercher des titres sur l'API de Youtube
 - Faire un tri entre titre recherché et titre à sauvegardé
+- Extraire les titres sauvegardés sur la page de l'outil
 - Supprimer les titres qui ne sont pas intéressant
+- Sauvegarder les titres et les organiser sur la page Historic 
