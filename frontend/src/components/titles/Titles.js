@@ -3,6 +3,7 @@ import TitleForm from "./TitleForm";
 import { useSelector, useDispatch } from "react-redux"
 import Title from "./Title";
 import CsvDownloader from "react-csv-downloader";
+import { v4 as uuidv4} from "uuid";
 
 // La page Titles qui s'affichera à l'url /titles 
 // affichant :
@@ -13,7 +14,7 @@ export default function Titles() {
 
     // Import des titres pour l'affichage dans le tableau des titres non sauvegardés
     // saveTitles pour l'affichage dans le tableau des titres non sauvegardés
-    const { titles, saveTitles } = useSelector(state => ({
+    const { searchForm, titles, saveTitles } = useSelector(state => ({
         ...state.TitleReducer
     }))
 
@@ -60,8 +61,29 @@ export default function Titles() {
         deleteTitle(id)
     }
 
+    // Ajoute la liste des saveTitles au state HistoricTitle afin de les garder en mémoire
+    // envoie un objet contenant :
+    //   - un id géneré
+    //   - le mot clé de recherche au moment de la sauvegarde
+    //   - la date de la sauvegarde
+    //   - et la liste des mots clés dans le state saveTitles
+    const saveHistoric = () => {
+        // L'objet qui sera ajouté au state HistoricTitles
+        const newHistoric = {
+            id: uuidv4(),
+            keyword: searchForm.keyword,
+            date: new Date().toLocaleString(),
+            titles: saveTitles
+        }
+        // Envoie de l'élément vers le TitleReducer
+        dispatch({
+            type: "SAVE_IN_HISTORIC_TITLE",
+            payload: newHistoric
+        })
+    }
+
     return (
-        <div className="container">
+        <div className="container mb-5">
             <h1 className="text-center mt-5">L'outil de recherche</h1>
             {/* Le formulaire de recherche des titres -> apiKey, keyword */}
             <TitleForm />
@@ -170,6 +192,11 @@ export default function Titles() {
                 >
                     <button className="btn btn-primary" style={{float: "right"}}>Extraire en CSV</button> 
                 </CsvDownloader>
+
+                {/*
+                Permer de déclencher la fonction saveHistoric, qui enregistre le saveTitles dans l'HistoricTitles 
+                */}
+                <button className="btn btn-success mr-4" style={{float: "right"}} onClick={saveHistoric}>Sauvegarder</button>
             </div>
         </div>
     )

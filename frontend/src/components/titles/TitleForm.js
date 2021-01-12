@@ -11,11 +11,24 @@ export default function TitleForm() {
     const { register, handleSubmit } = useForm();
 
     // Import titles from TitleReducer for push newtitle with pre titles in dispatch payload
-    const { titles } = useSelector(state => ({
+    // Import searchForm from TitleReducer for push apiKey and keyword in dispatch handleInputChange
+    const { titles, searchForm } = useSelector(state => ({
         ...state.TitleReducer
     }))
     
     const dispatch = useDispatch();
+
+    // À chaque modification du formulaire, cette fonction s'éxécute et renvoie la donnée modifié
+    // vers le searchForm du TitleReducer, cela va permettre plusieurs manipulations,
+    // notamment la sauvegarde du mot clé de recherche lors de l'activation de la fonction
+    // saveHistoricTitle de l'object Titles
+    const handleInputChange = (event) => {
+        searchForm[event.target.name] = event.target.value
+        dispatch({
+            type: "UPDATE_FORM",
+            payload: searchForm,
+        })
+    }
     
     // onSubmit function:
         // request youtube API
@@ -57,12 +70,12 @@ export default function TitleForm() {
                 <div className="mb-3">
                     {/* La clé API */}
                     <label className="form-label">Clé Api</label>
-                    <input ref={register} type="text" name="apiKey" className="form-control" />
+                    <input ref={register} placeholder="AIzaSyCdFoLHCS9l_Q4..." value={searchForm.apiKey} type="text" name="apiKey" className="form-control" onChange={handleInputChange}/>
                 </div>
                 <div className="mb-3">
                     {/* Le mot clé de recherche */}
                     <label className="form-label">Mot clé</label>
-                    <input ref={register} type="text" name="keyword" className="form-control" />
+                    <input ref={register} placeholder="Votre mot clé" value={searchForm.keyword} type="text" name="keyword" className="form-control" onChange={handleInputChange}/>
                 </div> 
                 {/*SUBMIT*/}
                 <button className="btn btn-dark">Rechercher</button>
