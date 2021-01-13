@@ -1,15 +1,17 @@
 const INITIAL_STATE = {
 
+    // UserConnected
+    connectedUser : "",
 
     // User database
     users: [
-        // {
-        //     id: "un id",
-        //     pseudo: "pseudo",
-        //     email: "fbouazza.pro@gmail.com",
-        //     password: "un mot de passe",
-        //     created_at: "date"
-        // }
+        {
+            id: "abc",
+            pseudo: "felix",
+            email: "fbouazza.pro@gmail.com",
+            password: "felix",
+            created_at: "date"
+        }
     ]
 
 
@@ -28,6 +30,22 @@ function UserReducer(state = INITIAL_STATE, action) {
                     ...state.users
                 ]
             }
+
+        // Save new ConnectedUser in the users state
+        case "LOGIN":
+            return {
+                ...state,
+                connectedUser: action.payload
+            }
+
+        // Save new ConnectedUser in the users state
+        case "LOGOUT":
+            return {
+                ...state,
+                connectedUser: action.payload
+            }
+
+        
         default:
             return state;
     }

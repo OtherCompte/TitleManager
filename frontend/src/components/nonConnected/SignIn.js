@@ -24,7 +24,7 @@ export default function SignIn({ changeRegisteR }) {
         // emailExist to know if a emailExist with the same submission email
         // if he doesn't match , add user to UserReducer with dispatch method
         // else he match , display "Email exist in database"
-        const emailExist = users.filter(user => user.email === data.email)
+        const emailExist = users.filter(user => user.email === data.email || user.pseudo === data.pseudo)
         if(emailExist.length === 0) {
             dispatch({
                 type: "REGISTER",
@@ -74,7 +74,7 @@ export default function SignIn({ changeRegisteR }) {
                     <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control"/>
                     {emailExist ? (
                         <div class="mt-3 alert alert-danger" role="alert">
-                        Cette adresse email existe déjà dans notre base
+                        Cette adresse email ou ce pseudo existe déjà dans notre base
                       </div>
                     ) : null}
                 

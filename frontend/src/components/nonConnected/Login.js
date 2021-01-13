@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 
 // This functionnalComponent take 2 parameters, first connect to send connection information to ParentAppComponent,
@@ -9,6 +9,8 @@ export default function Login({ connect, changeRegisteR }) {
 
     // Variable who say if we need to display "Email exist" after bad submission
     const [ userExist, setUserExist ] = useState(true)
+
+    const dispatch = useDispatch();
 
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
@@ -26,6 +28,10 @@ export default function Login({ connect, changeRegisteR }) {
         // If user Exist, connect this user to dashboard with ParentFunction connect - This function give one parameter, userID 
         // Else display "User doesn't exist" by changing UserExist state
         if(searchUser.length === 1) {
+            dispatch({
+                type: "LOGIN",
+                payload: searchUser[0].id
+            })
             connect(searchUser[0].id)
         } else {
             setUserExist(false)
