@@ -6,6 +6,7 @@ const rootReducer = combineReducers({
 
     // User Gestion
     UserReducer
+    
 })
 
 // Create store with rootReducer

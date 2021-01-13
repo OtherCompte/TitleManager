@@ -1,4 +1,7 @@
 const INITIAL_STATE = {
+
+
+    // User database
     users: [
         // {
         //     id: "un id",
@@ -8,10 +11,15 @@ const INITIAL_STATE = {
         //     created_at: "date"
         // }
     ]
+
+
 }
+
 
 function UserReducer(state = INITIAL_STATE, action) {
     switch(action.type) {
+
+        // Save new User in the users state
         case "REGISTER":
             return {
                 ...state,
@@ -24,5 +32,6 @@ function UserReducer(state = INITIAL_STATE, action) {
             return state;
     }
 }
+
 
 export default UserReducer;

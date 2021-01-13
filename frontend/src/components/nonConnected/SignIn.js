@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux"
 import { v4 as uuidv4} from "uuid";
 
+// This functionnalComponent take one parameter, changeRegister who can call to switch between LoginFORM and SignInFORM
 export default function SignIn({ changeRegisteR }) {
 
+    // emailExist uses for display or not display EmailError if Email exist in database
     const [ emailExist, setEmailExist ] = useState(false)
 
     // Hook Form for easy onSubmit
@@ -16,7 +18,12 @@ export default function SignIn({ changeRegisteR }) {
     
     const dispatch = useDispatch();
 
+    // FormSubmission
     const onSubmit = (data) => {
+
+        // emailExist to know if a emailExist with the same submission email
+        // if he doesn't match , add user to UserReducer with dispatch method
+        // else he match , display "Email exist in database"
         const emailExist = users.filter(user => user.email === data.email)
         if(emailExist.length === 0) {
             dispatch({
@@ -29,21 +36,31 @@ export default function SignIn({ changeRegisteR }) {
                     created_at: new Date().toLocaleString()
                 }
             })
+
+            // Switch to LoginFORM
             changeRegisteR()
+
+            // Remove Alert for "Email exist"
             setEmailExist(false)
+
         } else {
+
+            // Display Alert "Email exist"
             setEmailExist(true)
+
         }
     }
 
     return (
         <div className="container">
             <h3>Formulaire d'inscription</h3>
+
+            {/* onSubmission execute handleSubmit of ReactHookForm */}
             <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
                 <div className="mb-3">
 
 
-                    {/* Le pseudo */}
+                    {/* PseudoINPUT */}
                     <label className="form-label">Pseudo</label>
                     <input ref={register} placeholder="Votre pseudo" type="text" name="pseudo" className="form-control" />
                 
@@ -52,7 +69,7 @@ export default function SignIn({ changeRegisteR }) {
                 <div className="mb-3">
 
 
-                    {/* L'email */}
+                    {/* EmailINPUT */}
                     <label className="form-label">Email</label>
                     <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control"/>
                     {emailExist ? (
@@ -65,7 +82,7 @@ export default function SignIn({ changeRegisteR }) {
                 <div className="mb-3">
 
 
-                    {/* Le mot de passe*/}
+                    {/* PasswordINPUT */}
                     <label className="form-label">Mot de passe</label>
                     <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control"/>
 
@@ -73,11 +90,13 @@ export default function SignIn({ changeRegisteR }) {
                 </div> 
 
 
-                {/*SUBMIT*/}
+                {/* SUBMISSION BUTTON */}
                 <button className="btn btn-dark" style={{float: "right"}}>S'inscrire</button>
 
                 
             </form>
+
+            {/* Switch to LoginFORM with changeRegister parentMETHOD */}
             <button className="mb-4 btn btn-primary" onClick={() => changeRegisteR()}>Je suis déjà inscrit !</button>
         </div>
     )

@@ -8,9 +8,13 @@ import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
+
+  // Send store to Provider for communicate with the store inside ChildComponent
   <Provider store={store}>
     <App />
   </Provider>,
+
+
   document.getElementById('root')
 );
 

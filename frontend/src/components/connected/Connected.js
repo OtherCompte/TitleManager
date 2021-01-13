@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Personnalised Dashboard
 export default function Connected({ id }) {
     return (
         <div>
