@@ -6,7 +6,7 @@ export default function Header({ user, discUser}) {
 
     const dispatch = useDispatch();
 
-    {}
+    // Function to start LOGOUT and discUser Hook in App to refresh
     const disconnect = () => {
 
         // LOGOUT remove id in connectedUser state

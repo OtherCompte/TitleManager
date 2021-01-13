@@ -6,6 +6,8 @@ import { v4 as uuidv4} from "uuid";
 // This functionnalComponent take one parameter, changeRegister who can call to switch between LoginFORM and SignInFORM
 export default function SignIn({ changeRegisteR }) {
 
+    const [ isRegister, setIsRegister] = useState(false)
+
     // emailExist uses for display or not display EmailError if Email exist in database
     const [ emailExist, setEmailExist ] = useState(false)
 
@@ -38,23 +40,30 @@ export default function SignIn({ changeRegisteR }) {
                 }
             })
 
-            // Switch to LoginFORM
-            changeRegisteR()
+            // Display "You're REGISTER, you can LOGIN !"
+            setIsRegister(true);
 
             // Remove Alert for "Email exist"
             setEmailExist(false)
 
         } else {
 
-            // Display Alert "Email exist"
+            // Display Alert "Email exist" and remove isRegister message if exist
             setEmailExist(true)
-
+            setIsRegister(false);
         }
     }
 
     return (
         <div className="container">
             <h3>Formulaire d'inscription</h3>
+
+            {/* Display UserCreationConfirmation if email and pseudo not exist in store -> state Users */}
+            {isRegister ? (
+                <div class="mt-3 alert alert-success" role="alert">
+                    Votre compte a bien été crée, vous pouvez maintenant vous connecter pour accèder à votre <span style={{ fontWeight: 700}}>Dashboard</span>.
+                </div>
+            ) : null}
 
             {/* onSubmission execute handleSubmit of ReactHookForm */}
             <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
