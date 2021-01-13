@@ -12,6 +12,7 @@ export default function SignIn({ changeRegisteR }) {
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
 
+    // usersList state in store -> userReducer
     const { users } = useSelector(state => ({
         ...state.UserReducer
     }))
@@ -72,6 +73,9 @@ export default function SignIn({ changeRegisteR }) {
                     {/* EmailINPUT */}
                     <label className="form-label">Email</label>
                     <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control"/>
+                    
+                    {/* When InscriptionForm is submit. if email or pseudo exist 
+                    emailExist pass to true and this div is display in the form */}
                     {emailExist ? (
                         <div class="mt-3 alert alert-danger" role="alert">
                         Cette adresse email ou ce pseudo existe déjà dans notre base

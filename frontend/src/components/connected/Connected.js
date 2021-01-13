@@ -18,12 +18,17 @@ export default function Connected({ id, disUser}) {
 
     return (
         <Router>
+            {/* Automatically display Header in ConnectedDashboard 
+            Past props in Header - UserId + connectedUser and DiscUser who 
+            are method in Parent's Component : App*/}
             <Header
             key={id}
             id={id}
             user={connectedUser}
             discUser={disUser}
             />
+
+
             <Switch>
 
                 <Route exact path="/" component={Home}/>

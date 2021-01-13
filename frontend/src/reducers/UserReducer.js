@@ -1,9 +1,9 @@
 const INITIAL_STATE = {
 
-    // UserConnected
+    // Id of User who are connected
     connectedUser : "",
 
-    // User database
+    // List of UserRegister
     users: [
         {
             id: "abc",
@@ -21,7 +21,7 @@ const INITIAL_STATE = {
 function UserReducer(state = INITIAL_STATE, action) {
     switch(action.type) {
 
-        // Save new User in the users state
+        // Save UserWhoRegister to UsersList
         case "REGISTER":
             return {
                 ...state,
@@ -31,14 +31,14 @@ function UserReducer(state = INITIAL_STATE, action) {
                 ]
             }
 
-        // Save new ConnectedUser in the users state
+        // Save UserWhoLogin ID to connectedUser state
         case "LOGIN":
             return {
                 ...state,
                 connectedUser: action.payload
             }
 
-        // Save new ConnectedUser in the users state
+        // Save empty value in the connectedUser state
         case "LOGOUT":
             return {
                 ...state,
