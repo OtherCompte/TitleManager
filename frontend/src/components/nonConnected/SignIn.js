@@ -11,6 +11,8 @@ export default function SignIn({ changeRegisteR }) {
     // emailExist uses for display or not display EmailError if Email exist in database
     const [ emailExist, setEmailExist ] = useState(false)
 
+    const [ inputMissed, setInputMissed ] = useState(false)
+
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
 
@@ -23,7 +25,11 @@ export default function SignIn({ changeRegisteR }) {
 
     // FormSubmission
     const onSubmit = (data) => {
-
+        if(!data.pseudo || !data.email || !data.password) {
+            setInputMissed(true)
+            setEmailExist(false)
+            return new Error("Un des champs n'est pas renseigné !")
+        }
         // emailExist to know if a emailExist with the same submission email
         // if he doesn't match , add user to UserReducer with dispatch method
         // else he match , display "Email exist in database"
@@ -43,10 +49,14 @@ export default function SignIn({ changeRegisteR }) {
             // Display "You're REGISTER, you can LOGIN !"
             setIsRegister(true);
 
+            setInputMissed(false)
+
             // Remove Alert for "Email exist"
             setEmailExist(false)
 
         } else {
+            
+            setInputMissed(false)
 
             // Display Alert "Email exist" and remove isRegister message if exist
             setEmailExist(true)
@@ -55,8 +65,8 @@ export default function SignIn({ changeRegisteR }) {
     }
 
     return (
-        <div className="container">
-            <h3>Formulaire d'inscription</h3>
+        <div className="container" style={{maxWidth: "600px"}}>
+            <h3 class="text-center mt-3 mb-4">Inscrivez-vous</h3>
 
             {/* Display UserCreationConfirmation if email and pseudo not exist in store -> state Users */}
             {isRegister ? (
@@ -83,13 +93,7 @@ export default function SignIn({ changeRegisteR }) {
                     <label className="form-label">Email</label>
                     <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control"/>
                     
-                    {/* When InscriptionForm is submit. if email or pseudo exist 
-                    emailExist pass to true and this div is display in the form */}
-                    {emailExist ? (
-                        <div class="mt-3 alert alert-danger" role="alert">
-                        Cette adresse email ou ce pseudo existe déjà dans notre base
-                      </div>
-                    ) : null}
+                    
                 
                 </div>
                 <div className="mb-3">
@@ -99,8 +103,22 @@ export default function SignIn({ changeRegisteR }) {
                     <label className="form-label">Mot de passe</label>
                     <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control"/>
 
-                
+                        
                 </div> 
+
+                {/* When InscriptionForm is submit. if email or pseudo exist 
+                emailExist pass to true and this div is display in the form */}
+                {emailExist ? (
+                    <div class="mt-3 alert alert-danger" role="alert">
+                    Cette adresse email ou ce pseudo existe déjà dans notre base
+                    </div>
+                ) : null}
+
+                {inputMissed ? (
+                        <div class="mt-3 alert alert-danger" role="alert">
+                        Un des champs du formulaire n'est pas renseigné
+                      </div>
+                ) : null}
 
 
                 {/* SUBMISSION BUTTON */}

@@ -17,7 +17,7 @@ export default function Search() {
                         <h4 className="card-title m-3">La page de recherche de {user.pseudo}</h4>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     )
 }

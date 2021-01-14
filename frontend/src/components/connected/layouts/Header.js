@@ -23,7 +23,7 @@ export default function Header({ user, discUser}) {
         <>
             <nav className="navbar navbar-dark bg-dark">
                 <div className="container-fluid">
-                    <Link className="navbar-brand">Dashboard</Link>
+                    <Link className="navbar-brand" to="/">TitleManager</Link>
                     <ul className="nav">
 
 
@@ -35,27 +35,9 @@ export default function Header({ user, discUser}) {
                         </li>
 
 
-                        {/* Nav Search Item */}
-                        <li className="nav-item">
-                            <Link className="fas fa-search mr-3" style={{cursor: "pointer", color:"white"}} to="/search"></Link>
-                        </li>
-
-
-                        {/* Nav Manager Item */}
-                        <li className="nav-item">
-                            <Link className="fas fa-cloud mr-3" style={{cursor: "pointer", color:"white"}} to="/manager"></Link>
-                        </li>
-
-
-                        {/* Nav Profil Item */}
-                        <li className="nav-item">
-                            <Link className="fas fa-user-circle mr-3" style={{cursor: "pointer", color:"white"}} to="/profil"></Link>
-                        </li>
-
-
                         {/* Nav Disconnect Item */}
                         <li className="nav-item">
-                            <i className="fas fa-sign-out-alt" onClick={disconnect} style={{cursor: "pointer", color:"white"}}></i>  
+                            <i className="fas fa-sign-out-alt" onClick={disconnect} style={{cursor: "pointer", color:"white"}}><span className="ml-2">Disconnect</span></i>  
                         </li>
 
 

@@ -10,6 +10,8 @@ export default function Login({ connect, changeRegisteR }) {
     // Variable who say if we need to display "Email exist" after bad submission
     const [ userExist, setUserExist ] = useState(true)
 
+    const [ inputMissed, setInputMissed ] = useState(false)
+
     const dispatch = useDispatch();
 
     // Hook Form for easy onSubmit
@@ -22,6 +24,12 @@ export default function Login({ connect, changeRegisteR }) {
     // LoginFORM submission
     const onSubmit = (data) => {
 
+        if(!data.pseudo || !data.password) {
+            setInputMissed(true)
+            setUserExist(true)
+            return new Error("Un des champs n'est pas renseigné !")
+        }
+
         // User exist in userReducer with submit pseudo and password ? pseudo and password correspondance
         const searchUser = users.filter(user => user.pseudo === data.pseudo && user.password === data.password)
 
@@ -32,16 +40,18 @@ export default function Login({ connect, changeRegisteR }) {
                 type: "LOGIN",
                 payload: searchUser[0].id
             })
+            setInputMissed(false)
             connect(searchUser[0].id)
         } else {
+            setInputMissed(false)
             setUserExist(false)
         }
 
     }
 
     return (
-        <div className="container">
-            <h3 className="mb-3">Formulaire de connection</h3>
+        <div className="container" style={{maxWidth: "600px"}}>
+            <h3 className="mb-3 mt-3 text-center">Connectez-vous</h3>
             <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
                 <div className="mb-4">
 
@@ -68,6 +78,12 @@ export default function Login({ connect, changeRegisteR }) {
                     <div class="alert alert-danger" role="alert">
                     Cette utilisateur n'existe pas dans notre base
                   </div>
+                ) : null}
+
+                {inputMissed ? (
+                    <div class="mt-3 alert alert-danger" role="alert">
+                        Un des champs du formulaire n'est pas renseigné
+                    </div>
                 ) : null}
 
 

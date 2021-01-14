@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 
-export default function Manager() {
+export default function Campagnes() {
 
     const { users, connectedUser } = useSelector(state => ({
         ...state.UserReducer

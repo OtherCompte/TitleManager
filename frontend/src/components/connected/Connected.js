@@ -4,8 +4,9 @@ import { useSelector } from "react-redux"
 import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import Home from "./pages/Home";
 import Profil from "./pages/Profil";
-import Manager from "./pages/Manager";
+import Campagnes from "./pages/Campagnes";
 import Search from "./pages/Search.js";
+import DashboardNavigation from './layouts/DashboardNavigation';
 
 // Personnalised Dashboard
 export default function Connected({ id, disUser}) {
@@ -29,18 +30,27 @@ export default function Connected({ id, disUser}) {
             user={connectedUser}
             discUser={disUser}
             />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-1 flex-column p-0">
+                        <DashboardNavigation />
+                    </div>
+                    <div className="col-10 p-0">
+                        <Switch>
 
+                            <Route exact path="/" component={Home}/>
+                            <Route exact path="/profil" component={Profil} />
+                            <Route exact path="/search" component={Search} />
+                            <Route exact path="/campagnes" component={Campagnes} />
 
-            <Switch>
+                            {/* Page d'erreur en cas d'url non trouvé */}
+                            <Redirect to="/"/>
 
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/profil" component={Profil} />
-                <Route exact path="/search" component={Search} />
-                <Route exact path="/manager" component={Manager} />
+                        </Switch>
 
-                {/* Page d'erreur en cas d'url non trouvé */}
-                <Redirect to={"/"}/>
-            </Switch>
+                    </div>
+                </div>
+            </div>
         </Router>
     )
 }
