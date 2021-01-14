@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Connected from "./components/connected/Connected"
 import NonConnected from './components/nonConnected/NonConnected';
 
+
 export default function App() {
 
 
@@ -11,6 +12,7 @@ export default function App() {
     id: ""
   })
 
+
   // LoginForm to Dashboard
   const connectUser = (id) => {
     setUserConnected({
@@ -18,6 +20,7 @@ export default function App() {
       id: id
     })
   }
+
 
   // Dashboard to LoginForm
   const disconnectUser = () => {
@@ -31,18 +34,19 @@ export default function App() {
   return (
     <>
 
+
     {/* if User is Connected display Dashboard , else display LoginForm */}
     {userConnected.isConnected ? (
+
+
       <>
-
-
         {/* Connected page -> Dashboard 
         Send ID to know what is the userDashboard to display 
         didUser fonction for disconnect the User in the Dashboard */}
         <Connected
-        key={userConnected.id}
-        id={userConnected.id}
-        disUser={disconnectUser}
+          key={userConnected.id}
+          id={userConnected.id}
+          disUser={disconnectUser}
         />
       </>
 
@@ -50,17 +54,18 @@ export default function App() {
     ) : (
 
 
-      <>
-
-        {/* NonConnected page -> Login Form 
-        connectUser in the LoginForm for switch to the Dashboard before UserLogin 
-        execution in LoginButtonClick */}
-        <NonConnected 
-        conUser={connectUser}/>
-      </>
-
-
+        
+        <>
+          {/* NonConnected page -> Login Form 
+          connectUser in the LoginForm for switch to the Dashboard before UserLogin 
+          execution in LoginButtonClick */}
+          <NonConnected conUser={connectUser}/>
+        </>
+        
+        
     )}
+
+
     </>
   )
 }

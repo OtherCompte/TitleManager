@@ -8,14 +8,18 @@ import Campagnes from "./pages/Campagnes";
 import Search from "./pages/Search.js";
 import DashboardNavigation from './layouts/DashboardNavigation';
 
+
 // Personnalised Dashboard
 export default function Connected({ id, disUser}) {
 
+    // Import users to Search Information about connectedUser to passing it to the Header and DISCONNECT
     const { users } = useSelector(state => ({
         ...state.UserReducer
     }))
 
+    // User who be connect
     const connectedUser = users.filter(user => user.id === id)[0]
+
 
     return (
         <Router>
@@ -30,13 +34,21 @@ export default function Connected({ id, disUser}) {
             user={connectedUser}
             discUser={disUser}
             />
+
+
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-1 flex-column p-0">
+
+
+                        {/* Left Navbar on Dashboard who need to be display in all connectedPage, same as the Header*/}
                         <DashboardNavigation />
+
+
                     </div>
                     <div className="col-10 p-0">
                         <Switch>
+
 
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/profil" component={Profil} />
@@ -45,6 +57,7 @@ export default function Connected({ id, disUser}) {
 
                             {/* Page d'erreur en cas d'url non trouvé */}
                             <Redirect to="/"/>
+
 
                         </Switch>
 

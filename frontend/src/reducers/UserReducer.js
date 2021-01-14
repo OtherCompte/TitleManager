@@ -3,6 +3,7 @@ const INITIAL_STATE = {
     // Id of User who are connected
     connectedUser : "",
 
+
     // List of UserRegister
     users: [
         {
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
 function UserReducer(state = INITIAL_STATE, action) {
     switch(action.type) {
 
+
         // Save UserWhoRegister to UsersList
         case "REGISTER":
             return {
@@ -31,12 +33,14 @@ function UserReducer(state = INITIAL_STATE, action) {
                 ]
             }
 
+
         // Save UserWhoLogin ID to connectedUser state
         case "LOGIN":
             return {
                 ...state,
                 connectedUser: action.payload
             }
+
 
         // Save empty value in the connectedUser state
         case "LOGOUT":
@@ -48,6 +52,8 @@ function UserReducer(state = INITIAL_STATE, action) {
         
         default:
             return state;
+
+            
     }
 }
 

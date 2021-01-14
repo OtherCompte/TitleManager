@@ -2,12 +2,16 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import { useDispatch } from "react-redux"
 
+
 export default function Header({ user, discUser}) {
+
 
     const dispatch = useDispatch();
 
+
     // Function to start LOGOUT and discUser Hook in App to refresh
     const disconnect = () => {
+
 
         // LOGOUT remove id in connectedUser state
         dispatch({
@@ -15,8 +19,11 @@ export default function Header({ user, discUser}) {
             payload: ""
         })
         
+
         // disconnectUser function on ParentComponent -> App
         discUser()
+
+        
     }
 
     return (

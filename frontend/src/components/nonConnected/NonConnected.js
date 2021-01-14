@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import Login from "./Login";
 import SignIn from "./SignIn";
 
+
 export default function NonConnected({ conUser }) {
+
 
     // This state is declare to switch between Login and Sign In Form*
     const [ isRegister, setIsRegister ] = useState(true)
+
 
     // Function to inject in Children component to active and desactive isRegister state
     const changeRegister = () => {
@@ -23,23 +26,31 @@ export default function NonConnected({ conUser }) {
                     <p className="card-text">Il est intéressant, dans le cas ou votre thématique est une thématique forte à l'étranger de passer par des titres de cette langue en particulier où les titres seo ont plus de chance d'être optimisé</p>
                 </div>
 
+
                 {/* If client is register display Login Form else display SignIn Form*/}
                 {isRegister ? (
-                    <>
 
+
+                    <>
                         {/* LoginForm -> past conUser fonction to change LoginPage to DashboardPage after Submit LoginForm */}
                         <Login 
                         changeRegisteR={changeRegister}
                         connect={conUser}
                         />
                     </>
+
+
                 ) : (
+
+
                     <>
                         {/* SignIn Form to display if client isn't register */}
                         <SignIn 
                         changeRegisteR={changeRegister}
                         />
                     </>
+
+                    
                 )}
 
 

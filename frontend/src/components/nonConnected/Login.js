@@ -7,44 +7,83 @@ import { useSelector, useDispatch } from "react-redux"
 // second changeRegister to switch between Login and SignIn Page
 export default function Login({ connect, changeRegisteR }) {
 
+
     // Variable who say if we need to display "Email exist" after bad submission
     const [ userExist, setUserExist ] = useState(true)
 
+
+    // Variable to know if we need to display "One Input is unrenseigned"
     const [ inputMissed, setInputMissed ] = useState(false)
+
 
     const dispatch = useDispatch();
 
+
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
+
 
     const { users } = useSelector(state => ({
         ...state.UserReducer
     }))
     
+
     // LoginFORM submission
     const onSubmit = (data) => {
+        
 
+        // Check if pseudo and password exist in SubmitData
         if(!data.pseudo || !data.password) {
+
+
+            // Display "One Input Missed"
             setInputMissed(true)
+
+
+            // Deactivate "User doesn't exist" if he is display
             setUserExist(true)
+
+
             return new Error("Un des champs n'est pas renseigné !")
+
         }
+
 
         // User exist in userReducer with submit pseudo and password ? pseudo and password correspondance
         const searchUser = users.filter(user => user.pseudo === data.pseudo && user.password === data.password)
 
+
+
         // If user Exist, connect this user to dashboard with ParentFunction connect - This function give one parameter, userID 
         // Else display "User doesn't exist" by changing UserExist state
         if(searchUser.length === 1) {
+
+
+            // send UserID to UserReducer state connectedUser
             dispatch({
                 type: "LOGIN",
                 payload: searchUser[0].id
             })
+
+
+            // Deactivate "Input Missed" if he exist
             setInputMissed(false)
+
+
+            // Connect fonction passed children to children by GrandParentComponent -> App
             connect(searchUser[0].id)
+
+
         } else {
+
+
+            // Deactivate "Input Missed" if he exist
             setInputMissed(false)
+
+            // Activate "Input doesn't match any User"
             setUserExist(false)
+
+
         }
 
     }
@@ -73,20 +112,22 @@ export default function Login({ connect, changeRegisteR }) {
                 
                 </div> 
 
+
                 {/* If checking user connection missing , this expression display a message to the client that says "This user doesn't exist"*/}
                 {!userExist ? (
                     <div class="alert alert-danger" role="alert">
                     Cette utilisateur n'existe pas dans notre base
                   </div>
                 ) : null}
+                
 
+
+                {/* If one input is missed, display "Input missed" */}
                 {inputMissed ? (
                     <div class="mt-3 alert alert-danger" role="alert">
                         Un des champs du formulaire n'est pas renseigné
                     </div>
                 ) : null}
-
-
 
 
                 {/*SUBMIT*/}
@@ -95,8 +136,11 @@ export default function Login({ connect, changeRegisteR }) {
                 
             </form>
 
+
             {/* Button to switch in to RegisterForm */}
             <button className="mb-5 btn btn-primary" onClick={() => changeRegisteR()}>Je ne suis pas encore inscrit !</button>
+
+            
         </div>
     )
 }
