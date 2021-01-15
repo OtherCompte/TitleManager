@@ -7,11 +7,20 @@ const INITIAL_STATE = {
     // List of UserRegister
     users: [
         {
-            id: "abc",
+            id: "abcdefghijklm",
             pseudo: "felix",
-            email: "fbouazza.pro@gmail.com",
+            email: "email@email.fr",
             password: "felix",
-            created_at: "date"
+            created_at: "date",
+            youtubeApiKey: ""
+        },
+        {
+            id: "uniddifferent",
+            pseudo: "felixfelix",
+            email: "fbouazza.pro@gmail.com",
+            password: "fel",
+            created_at: "date",
+            youtubeApiKey: ""
         }
     ]
 
@@ -47,6 +56,12 @@ function UserReducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 connectedUser: action.payload
+            }
+
+        case "UPDATE":
+            return {
+                ...state,
+                users: action.payload
             }
 
         

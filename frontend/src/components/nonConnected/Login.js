@@ -115,7 +115,7 @@ export default function Login({ connect, changeRegisteR }) {
 
                 {/* If checking user connection missing , this expression display a message to the client that says "This user doesn't exist"*/}
                 {!userExist ? (
-                    <div class="alert alert-danger" role="alert">
+                    <div className="alert alert-danger" role="alert">
                     Cette utilisateur n'existe pas dans notre base
                   </div>
                 ) : null}
@@ -124,7 +124,7 @@ export default function Login({ connect, changeRegisteR }) {
 
                 {/* If one input is missed, display "Input missed" */}
                 {inputMissed ? (
-                    <div class="mt-3 alert alert-danger" role="alert">
+                    <div className="mt-3 alert alert-danger" role="alert">
                         Un des champs du formulaire n'est pas renseigné
                     </div>
                 ) : null}

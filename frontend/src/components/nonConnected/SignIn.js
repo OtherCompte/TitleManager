@@ -72,7 +72,8 @@ export default function SignIn({ changeRegisteR }) {
                     pseudo: data.pseudo,
                     email: data.email,
                     password: data.password,
-                    created_at: new Date().toLocaleString()
+                    created_at: new Date().toLocaleString(),
+                    youtubeApiKey: "a"
                 }
             })
 

@@ -13,7 +13,7 @@ export default function DashboardNavigation() {
 
 
                 {/* Search Link */}
-                <Link className="fas fa-search" style={{cursor: "pointer", color:"white", fontWeight: "800"}} to="/search"></Link>
+                <Link className="fas fa-search mx-auto" style={{cursor: "pointer", color:"white", fontWeight: "800"}} to="/search"></Link>
 
 
             </div>
@@ -23,7 +23,7 @@ export default function DashboardNavigation() {
                 
 
                 {/* Campagnes Link */}
-                <Link className="fas fa-cloud" style={{cursor: "pointer", color:"white", fontWeight: "800"}} to="/campagnes"></Link>7
+                <Link className="fas fa-cloud" style={{cursor: "pointer", color:"white", fontWeight: "800"}} to="/campagnes"></Link>
 
 
             </div>
