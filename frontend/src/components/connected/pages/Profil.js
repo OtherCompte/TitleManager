@@ -1,7 +1,7 @@
 import React , {useState} from 'react'
 import { useSelector } from "react-redux";
-import ProfilDisplay from "./Components/Profil/ProfilDisplay";
-import ProfilUpdate from "./Components/Profil/ProfilUpdate";
+import ProfilDisplay from "../components/Profil/ProfilDisplay";
+import ProfilUpdate from "../components/Profil/ProfilUpdate";
 
 
 export default function Profil() {
