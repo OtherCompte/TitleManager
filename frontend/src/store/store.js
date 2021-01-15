@@ -1,13 +1,16 @@
 import { combineReducers, createStore } from "redux";
 import UserReducer from "../reducers/UserReducer";
-
+import CampagneReducer from "../reducers/CampagneReducer";
 
 // Concat all Reducer on rootReducer
 const rootReducer = combineReducers({
 
     
     // User Gestion
-    UserReducer
+    UserReducer,
+
+    // Campaign Gestion
+    CampagneReducer
     
 
 })

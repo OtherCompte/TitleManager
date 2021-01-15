@@ -52,7 +52,7 @@ export default function SignIn({ changeRegisteR }) {
                     email: data.email,
                     password: data.password,
                     created_at: new Date().toLocaleString(),
-                    youtubeApiKey: "a"
+                    youtubeApiKey: ""
                 }
             })
 

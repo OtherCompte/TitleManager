@@ -12,7 +12,7 @@ const INITIAL_STATE = {
             email: "email@email.fr",
             password: "felix",
             created_at: "date",
-            youtubeApiKey: ""
+            youtubeApiKey: "a"
         },
         {
             id: "uniddifferent",
