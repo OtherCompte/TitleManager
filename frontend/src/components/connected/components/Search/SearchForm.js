@@ -4,12 +4,16 @@ import {useForm} from "react-hook-form";
 
 export default function SearchForm() {
 
+
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
 
+
+    // OnSubmitForm -> do the search and dispatch data
     const onSubmit = (data) => {
         console.log(data)
     }
+
 
     return (
         <div className="container pt-2">
@@ -22,7 +26,9 @@ export default function SearchForm() {
 
                     {/* onSubmit -> réalise la recherche vers l'API et Axios puis ajoute les résultats aux tableau titles du TitleReducer */}
                     <form onSubmit={handleSubmit(onSubmit)}>
+                        
 
+                        {/* Display campaign option */}
                         {/* <div className="mb-3 text-center">
 
 
