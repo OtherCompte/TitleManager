@@ -1,11 +1,29 @@
-import React from 'react'
-
-import ProfilInformation from "./Profil/ProfilInformation"
+import React , {useState} from 'react'
+import { useSelector } from "react-redux";
+import ProfilDisplay from "./Components/Profil/ProfilDisplay";
+import ProfilUpdate from "./Components/Profil/ProfilUpdate";
 
 
 export default function Profil() {
 
     
+    const { users, connectedUser } = useSelector(state => ({
+        ...state.UserReducer
+    }))
+
+
+    const user = users.filter(user => user.id === connectedUser)[0]
+    
+
+    // Variable to know if we need to display UpdateProfilSettings or ProfilInformation
+    const [ isUpdateProfil, setIsUpdateProfil ] = useState(false)
+
+
+    // Switch between ProfilInformation and ProfilUpdateForm
+    const changeIsUpdateProfil = () => {
+        setIsUpdateProfil(!isUpdateProfil)
+    }
+
 
     return (
 
@@ -17,7 +35,28 @@ export default function Profil() {
             <div className="row">
                 <div className="col-sm-1"></div>
                 <div className="col-sm-10">
-                    <ProfilInformation />
+                    
+
+                    {/* If user wanna update this profil settings we display ProfilUpdateForm
+                    else display ProfilInformation -> past setIsUpdateProfil to ChildComponent*/}
+                    {isUpdateProfil ? (
+                        <>
+                            <ProfilUpdate
+                            users={users}
+                            user={user} 
+                            changeIsUpdateProfil={changeIsUpdateProfil}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <ProfilDisplay 
+                            user={user}
+                            changeIsUpdateProfil={changeIsUpdateProfil}
+                            />
+                        </>
+                    )}
+
+
                 </div>
                 <div className="col-sm-1"></div>
             </div>

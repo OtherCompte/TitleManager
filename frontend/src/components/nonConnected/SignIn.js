@@ -16,10 +16,6 @@ export default function SignIn({ changeRegisteR }) {
     const [ emailExist, setEmailExist ] = useState(false)
 
 
-    // Variable to know if we need to display "Input Missed in the FormSubmission"
-    const [ inputMissed, setInputMissed ] = useState(false)
-
-
     // Hook Form for easy onSubmit
     const { register, handleSubmit } = useForm();
 
@@ -37,29 +33,12 @@ export default function SignIn({ changeRegisteR }) {
     const onSubmit = (data) => {
 
 
-        // Check if data is missed in FormSubmissionData
-        if(!data.pseudo || !data.email || !data.password) {
-
-
-            //if missed display "Input missed in the form"
-            setInputMissed(true)
-
-
-            // Deactivate EmailExistMessage if he exist
-            setEmailExist(false)
-
-
-            return new Error("Un des champs n'est pas renseigné !")
-        
-        
-        }
-
-
         // emailExist to know if a emailExist with the same submission email
         // if he doesn't match , add user to UserReducer with dispatch method
         // else he match , display "Email exist in database"
         const emailExist = users.filter(user => user.email === data.email || user.pseudo === data.pseudo)
 
+        
         // If any correspondance, we can create this USER
         if(emailExist.length === 0) {
 
@@ -82,19 +61,11 @@ export default function SignIn({ changeRegisteR }) {
             setIsRegister(true);
 
 
-            // Deactivate InputMissedMessage is he exist
-            setInputMissed(false)
-
-
             // Remove Alert for "Email exist"
             setEmailExist(false)
 
 
         } else {
-
-
-            // Deactivate InputMissedMessage is he exist
-            setInputMissed(false)
 
 
             // Display Alert "Email exist" and remove isRegister message if exist
@@ -127,7 +98,7 @@ export default function SignIn({ changeRegisteR }) {
 
                     {/* PseudoINPUT */}
                     <label className="form-label">Pseudo</label>
-                    <input ref={register} placeholder="Votre pseudo" type="text" name="pseudo" className="form-control" />
+                    <input ref={register} placeholder="Votre pseudo" type="text" name="pseudo" className="form-control" required/>
                 
                 
                 </div>
@@ -136,7 +107,7 @@ export default function SignIn({ changeRegisteR }) {
 
                     {/* EmailINPUT */}
                     <label className="form-label">Email</label>
-                    <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control"/>
+                    <input ref={register} placeholder="Votre email" type="email" name="email" className="form-control" required/>
                     
                     
                 
@@ -146,7 +117,7 @@ export default function SignIn({ changeRegisteR }) {
 
                     {/* PasswordINPUT */}
                     <label className="form-label">Mot de passe</label>
-                    <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control"/>
+                    <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control" required/>
 
                         
                 </div> 
@@ -158,15 +129,6 @@ export default function SignIn({ changeRegisteR }) {
                     <div class="mt-3 alert alert-danger" role="alert">
                     Cette adresse email ou ce pseudo existe déjà dans notre base
                     </div>
-                ) : null}
-
-                
-
-                {/* Display "Input missed" if inputMissed variable is true */}
-                {inputMissed ? (
-                        <div class="mt-3 alert alert-danger" role="alert">
-                        Un des champs du formulaire n'est pas renseigné
-                      </div>
                 ) : null}
 
 

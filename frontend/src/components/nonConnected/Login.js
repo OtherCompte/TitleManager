@@ -12,10 +12,6 @@ export default function Login({ connect, changeRegisteR }) {
     const [ userExist, setUserExist ] = useState(true)
 
 
-    // Variable to know if we need to display "One Input is unrenseigned"
-    const [ inputMissed, setInputMissed ] = useState(false)
-
-
     const dispatch = useDispatch();
 
 
@@ -30,23 +26,6 @@ export default function Login({ connect, changeRegisteR }) {
 
     // LoginFORM submission
     const onSubmit = (data) => {
-        
-
-        // Check if pseudo and password exist in SubmitData
-        if(!data.pseudo || !data.password) {
-
-
-            // Display "One Input Missed"
-            setInputMissed(true)
-
-
-            // Deactivate "User doesn't exist" if he is display
-            setUserExist(true)
-
-
-            return new Error("Un des champs n'est pas renseigné !")
-
-        }
 
 
         // User exist in userReducer with submit pseudo and password ? pseudo and password correspondance
@@ -66,19 +45,12 @@ export default function Login({ connect, changeRegisteR }) {
             })
 
 
-            // Deactivate "Input Missed" if he exist
-            setInputMissed(false)
-
-
             // Connect fonction passed children to children by GrandParentComponent -> App
             connect(searchUser[0].id)
 
 
         } else {
 
-
-            // Deactivate "Input Missed" if he exist
-            setInputMissed(false)
 
             // Activate "Input doesn't match any User"
             setUserExist(false)
@@ -97,7 +69,7 @@ export default function Login({ connect, changeRegisteR }) {
 
                     {/* PseudoINPUT */}
                     <label className="form-label">Pseudo</label>
-                    <input ref={register} placeholder="Votre pseudo" type="text" name="pseudo" className="form-control" />
+                    <input ref={register} placeholder="Votre pseudo" type="text" name="pseudo" className="form-control" required/>
                 
                 
                 </div>
@@ -107,7 +79,7 @@ export default function Login({ connect, changeRegisteR }) {
 
                     {/* PasswordINPUT */}
                     <label className="form-label">Mot de passe</label>
-                    <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control"/>
+                    <input ref={register} placeholder="Votre mot de passe" type="password" name="password" className="form-control" required/>
                 
                 
                 </div> 
@@ -118,15 +90,6 @@ export default function Login({ connect, changeRegisteR }) {
                     <div className="alert alert-danger" role="alert">
                     Cette utilisateur n'existe pas dans notre base
                   </div>
-                ) : null}
-                
-
-
-                {/* If one input is missed, display "Input missed" */}
-                {inputMissed ? (
-                    <div className="mt-3 alert alert-danger" role="alert">
-                        Un des champs du formulaire n'est pas renseigné
-                    </div>
                 ) : null}
 
 

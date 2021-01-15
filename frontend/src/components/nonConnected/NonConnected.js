@@ -15,6 +15,7 @@ export default function NonConnected({ conUser }) {
         setIsRegister(!isRegister)
     }
 
+    
     return (
         <div className="container mt-5">
             <h1 className="text-center">Welcome on SEO Title Generator !</h1>

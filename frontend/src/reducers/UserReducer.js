@@ -58,6 +58,8 @@ function UserReducer(state = INITIAL_STATE, action) {
                 connectedUser: action.payload
             }
 
+            
+        // Update users list on state 
         case "UPDATE":
             return {
                 ...state,
